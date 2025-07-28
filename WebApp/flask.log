@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/home/lincolnminto/Projects/AI-Interview/WebApp/app.py", line 16, in <module>
+    from library.speech_emotion_recognition import *
+  File "/home/lincolnminto/Projects/AI-Interview/WebApp/library/speech_emotion_recognition.py", line 7, in <module>
+    import pyaudio
+ModuleNotFoundError: No module named 'pyaudio'
