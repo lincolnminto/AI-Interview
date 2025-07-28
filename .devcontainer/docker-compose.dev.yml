@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  workspace:
+    build:
+      dockerfile: Dockerfile
+    volumes:
+      - ..:/workspace:cached
+    command: sleep infinity
+    networks:
+      - ai-interview-network
+
+  frontend:
+    build:
+      context: ../Application
+      target: development
+    container_name: ai-interview-frontend
+    volumes:
+      - ../Application:/app:cached
+      - /app/node_modules
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+    networks:
+      - ai-interview-network
+    depends_on:
+      - backend
+
+  backend:
+    build:
+      context: ../WebApp
+    container_name: ai-interview-backend
+    volumes:
+      - ../WebApp:/app:cached
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_ENV=development
+      - FLASK_DEBUG=1
+    networks:
+      - ai-interview-network
+
+networks:
+  ai-interview-network:
+    driver: bridge
