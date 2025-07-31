@@ -1,14 +1,24 @@
 {
   "name": "AI Interview System",
-  "dockerComposeFile": [
-    "docker-compose.dev.yml"
-  ],
+  "dockerComposeFile": ["docker-compose.dev.yml"],
   "service": "workspace",
   "workspaceFolder": "/workspace",
   "features": {
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "18"
+    },
     "ghcr.io/devcontainers/features/git:1": {},
-    "ghcr.io/devcontainers/features/github-cli:1": {}
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/devcontainers/features/python:1": {}
   },
+  "customizations": {
+    "settings": {
+      "python.pipenvPath": ".venv/bin/pip",
+      "python.venvFolders": [".venv"],
+      "python.defaultInterpreterPath": ".venv/bin/python"
+    }
+  },
+
   "forwardPorts": [3000, 5000],
   "portsAttributes": {
     "3000": {
@@ -18,40 +28,9 @@
       "label": "Flask API"
     }
   },
-  "postCreateCommand": "cd Application && npm install && cd ../WebApp && pip install -r requirements.txt",
-  "customizations": {
-    "vscode": {
-      "extensions": [
-        "ms-python.python",
-        "ms-python.flake8",
-        "ms-python.pylint",
-        "ms-vscode.vscode-typescript-next",
-        "bradlc.vscode-tailwindcss",
-        "esbenp.prettier-vscode",
-        "ms-vscode.vscode-json",
-        "ms-python.debugpy"
-      ],
-      "settings": {
-        "python.defaultInterpreterPath": "/usr/local/bin/python",
-        "python.terminal.activateEnvironment": false,
-        "editor.formatOnSave": true,
-        "editor.codeActionsOnSave": {
-          "source.organizeImports": true
-        },
-        "python.formatting.provider": "black",
-        "python.linting.enabled": true,
-        "python.linting.pylintEnabled": true,
-        "[javascript]": {
-          "editor.defaultFormatter": "esbenp.prettier-vscode"
-        },
-        "[typescript]": {
-          "editor.defaultFormatter": "esbenp.prettier-vscode"
-        },
-        "[typescriptreact]": {
-          "editor.defaultFormatter": "esbenp.prettier-vscode"
-        }
-      }
-    }
-  },
-  "remoteUser": "vscode"
+  "postCreateCommand": "python -m venv .venv && .venv/bin/pip install -r WebApp/requirements.txt && cd Application && yarn install && yarn run build",
+  "remoteUser": "vscode",
+  "mounts": [
+    "source=${localEnv:HOME}${localEnv:USERPROFILE},target=/home,type=bind,consistency=cached"
+  ]
 }

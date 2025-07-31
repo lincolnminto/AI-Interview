@@ -1,0 +1,15 @@
+{
+  "recommendations": [
+    "GitHub.copilot",
+    "eamodio.gitlens",
+    "GitHub.vscode-pull-request-github",
+    "oderwat.indent-rainbow",
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "ms-azuretools.vscode-containers",
+    "ms-python.python",
+    "ms-toolsai.jupyter",
+    "anthropic.claude-code"
+  ],
+  "unwantedRecommendations": []
+}

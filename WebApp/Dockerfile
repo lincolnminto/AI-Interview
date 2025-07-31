@@ -6,9 +6,15 @@ ENV PIP_DEFAULT_TIMEOUT=100 \
 ADD . /app
 WORKDIR /app
 RUN apt-get update \
-        && apt-get install gcc -y\
-        && apt-get install libportaudio2 libportaudiocpp0 portaudio19-dev libasound-dev libsndfile1-dev libgl1-mesa-dev -y \
-        && apt-get install build-essential cmake pkg-config -y \
-        && pip3 install pyaudio
-RUN pip install dlib
-RUN pip install -r requirements.txt
+    && apt-get install gcc -y\
+    && apt-get install libportaudio2 libportaudiocpp0 portaudio19-dev libasound-dev libsndfile1-dev libgl1-mesa-dev -y \
+    && apt-get install build-essential cmake pkg-config libglib2.0-0 -y \
+    && pip3 install pyaudio
+
+RUN pip3 install dlib
+
+RUN pip3 install -r requirements.txt \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN pip3 freeze > requirements-locked.txt
